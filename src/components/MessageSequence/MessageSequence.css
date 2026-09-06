@@ -1,0 +1,45 @@
+.message-sequence {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 120px;
+  width: 100%;
+}
+
+.message-sequence .message {
+  margin: 0;
+  color: white;
+
+  font-size: 4rem;
+  line-height: 1.6;
+  text-align: center;
+
+  opacity: 0;
+  transform: translateY(20px);
+
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s ease;
+}
+
+.message-sequence .message.message-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Khi cầm dọc trên iPhone */
+@media (max-width: 600px) and (orientation: portrait) {
+  .message-sequence .message {
+    font-size: 2.2rem;
+    line-height: 1.35;
+  }
+}
+
+/* Khi xoay ngang trên iPhone */
+@media (orientation: landscape) and (max-height: 500px) {
+  .message-sequence .message {
+    font-size: 1.9rem;
+    line-height: 1.3;
+  }
+}

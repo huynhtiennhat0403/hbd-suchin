@@ -1,0 +1,40 @@
+.falling-hearts {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  top: -60px;
+  color: #ff3366;
+  user-select: none;
+
+  /* Chạy liên tục lặp lại không ngừng */
+  animation-name: fallFast;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  will-change: transform;
+}
+
+@keyframes fallFast {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(15px, 30vh, 0) rotate(20deg);
+  }
+  50% {
+    transform: translate3d(-15px, 60vh, 0) rotate(-20deg);
+  }
+  75% {
+    transform: translate3d(10px, 90vh, 0) rotate(15deg);
+  }
+  100% {
+    /* Đẩy hẳn ra khỏi đáy màn hình */
+    transform: translate3d(0, 115vh, 0) rotate(0deg);
+  }
+}

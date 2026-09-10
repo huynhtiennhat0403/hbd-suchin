@@ -1,53 +1,104 @@
-.falling-hearts {
+.final-heart-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 480px;
+  transform: translateY(90px);
+}
+
+.heart-border {
   position: absolute;
-  inset: 0;
-  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% + 20px));
   pointer-events: none;
-  z-index: 1;
 }
 
-.heart {
+.dense-mini-heart {
   position: absolute;
-  top: -120px; /* Tăng khoảng âm để dòng chữ dọc không bị cụt khi bắt đầu rơi */
-  
-  /* 1. Xếp chữ thẳng đứng dọc xuống */
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  letter-spacing: 3px; /* Khoảng cách giữa các ký tự cho thoáng mắt */
-
-  /* 2. Màu trắng phát sáng cực nổi bật trên nền tối */
-  color: #ffffff;
-  font-weight: 700;
-  font-family: 'Dancing Script', cursive, sans-serif; /* Dùng chung font uốn lượn đẹp mắt */
-  text-shadow: 
-    0 0 6px #ffffff,
-    0 0 12px rgba(255, 105, 180, 0.9),
-    0 0 20px rgba(255, 51, 102, 0.7);
-
+  top: 0;
+  left: 0;
+  line-height: 1;
   user-select: none;
+  opacity: 0;
 
-  /* Hiệu ứng rơi */
-  animation-name: fallFast;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  will-change: transform;
+  /* Dùng animation vẽ từng điểm một lần duy nhất */
+  animation: drawHeartPoint 0.6s ease-out forwards;
+  will-change: transform, opacity;
+  -webkit-transform: translateZ(0); /* Kích hoạt tăng tốc GPU trên Safari iOS */
 }
 
-@keyframes fallFast {
+/* Keyframe vẽ từng hạt tim nở ra mượt mà */
+@keyframes drawHeartPoint {
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(var(--tx), calc(var(--ty) + 10px), 0) scale(0.2);
+    opacity: 0;
   }
-  25% {
-    transform: translate3d(8px, 30vh, 0);
-  }
-  50% {
-    transform: translate3d(-8px, 60vh, 0);
-  }
-  75% {
-    transform: translate3d(6px, 90vh, 0);
+  70% {
+    transform: translate3d(var(--tx), var(--ty), 0) scale(1.15);
+    opacity: 1;
   }
   100% {
-    /* Đẩy qua khỏi đáy màn hình */
-    transform: translate3d(0, 120vh, 0);
+    transform: translate3d(var(--tx), var(--ty), 0) scale(1);
+    opacity: 0.95;
+  }
+}
+
+h1.final-message {
+  position: relative;
+  z-index: 10;
+  margin: 0;
+  color: #ffffff;
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 
+    0 0 12px rgba(255, 255, 255, 0.95),
+    0 0 28px rgba(255, 77, 109, 0.85);
+  letter-spacing: 2px;
+  transform: translateY(25px);
+  animation: fadeInText 1.2s ease-out forwards;
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(25px) scale(1);
+  }
+}
+
+/* iPhone cầm dọc */
+@media (max-width: 600px) and (orientation: portrait) {
+  .final-heart-container {
+    min-height: 380px;
+    transform: translateY(80px);
+  }
+
+  .heart-border {
+    transform: translate(calc(-50% - 15px), calc(-50% + 20px));
+  }
+
+  h1.final-message {
+    font-size: 2.2rem;
+    transform: translateY(20px);
+  }
+}
+
+/* iPhone xoay ngang */
+@media (orientation: landscape) and (max-height: 500px) {
+  .final-heart-container {
+    min-height: 300px;
+    transform: translateY(40px);
+  }
+  h1.final-message {
+    font-size: 2rem;
+    margin-left: 30px;
   }
 }

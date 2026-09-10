@@ -5,7 +5,6 @@
   align-items: center;
   width: 100%;
   min-height: 480px;
-  /* Đẩy sâu xuống dưới 90px để đỉnh tim hoàn toàn nằm dưới khuôn mặt */
   transform: translateY(90px);
 }
 
@@ -25,9 +24,26 @@
   user-select: none;
   opacity: 0;
 
-  animation: appearAndGlow 3s ease-in-out infinite;
-  animation-fill-mode: forwards;
+  /* Dùng animation vẽ từng điểm một lần duy nhất */
+  animation: drawHeartPoint 0.6s ease-out forwards;
   will-change: transform, opacity;
+  -webkit-transform: translateZ(0); /* Kích hoạt tăng tốc GPU trên Safari iOS */
+}
+
+/* Keyframe vẽ từng hạt tim nở ra mượt mà */
+@keyframes drawHeartPoint {
+  0% {
+    transform: translate3d(var(--tx), calc(var(--ty) + 10px), 0) scale(0.2);
+    opacity: 0;
+  }
+  70% {
+    transform: translate3d(var(--tx), var(--ty), 0) scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--tx), var(--ty), 0) scale(1);
+    opacity: 0.95;
+  }
 }
 
 h1.final-message {
@@ -36,16 +52,15 @@ h1.final-message {
   margin: 0;
   color: #ffffff;
   font-family: 'Dancing Script', cursive;
-  font-size: 2.8rem;
+  font-size: 3rem;
   font-weight: 700;
   text-align: center;
   text-shadow: 
     0 0 12px rgba(255, 255, 255, 0.95),
     0 0 28px rgba(255, 77, 109, 0.85);
   letter-spacing: 2px;
-  /* Đẩy chữ xuống dưới (dùng số dương) */
+  transform: translateY(25px);
   animation: fadeInText 1.2s ease-out forwards;
-  margin-left: 21px
 }
 
 @keyframes fadeInText {
@@ -55,27 +70,7 @@ h1.final-message {
   }
   to {
     opacity: 1;
-    /* Phải khớp số dương ở đây thì chữ mới ở yên vị trí thấp */
-    transform: translateY(20px) scale(1);
-  }
-}
-
-@keyframes appearAndGlow {
-  0% {
-    transform: translate(var(--tx), calc(var(--ty) + 10px)) scale(0.3);
-    opacity: 0;
-  }
-  20% {
-    transform: translate(var(--tx), var(--ty)) scale(1.08);
-    opacity: 1;
-  }
-  70% {
-    transform: translate(var(--tx), var(--ty)) scale(1);
-    opacity: 0.95;
-  }
-  100% {
-    transform: translate(var(--tx), calc(var(--ty) - 4px)) scale(0.9);
-    opacity: 0.8;
+    transform: translateY(25px) scale(1);
   }
 }
 
@@ -83,14 +78,16 @@ h1.final-message {
 @media (max-width: 600px) and (orientation: portrait) {
   .final-heart-container {
     min-height: 380px;
-    transform: translateY(60px);
+    transform: translateY(80px);
   }
+
   .heart-border {
-    transform: translate(calc(-50% - 9px), calc(-50% + 20px));
+    transform: translate(calc(-50% - 15px), calc(-50% + 20px));
   }
+
   h1.final-message {
     font-size: 2.2rem;
-    transform: translateY(-5px);
+    transform: translateY(20px);
   }
 }
 

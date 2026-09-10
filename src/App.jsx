@@ -37,7 +37,7 @@ function App() {
           {!isMessageDone ? (
             <MessageSequence onComplete={() => setIsMessageDone(true)} />
           ) : (
-            <FinalHeart text="Anh yêu em" />
+            <FinalHeart text="Happy Birthday!" />
           )}
         </div>
       )}

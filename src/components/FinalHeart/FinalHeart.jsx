@@ -1,9 +1,9 @@
 import { useMemo, useState, useEffect } from "react";
 import "./FinalHeart.css";
 
-const TOTAL_HEARTS = 500;
+const TOTAL_HEARTS = 460;
 
-function generateOrderedPoints(count = TOTAL_HEARTS, scaleX = 22, scaleY = 17) {
+function generateOrderedPoints(count = TOTAL_HEARTS, scaleX = 13, scaleY = 10) {
   const list = [];
   for (let i = 0; i < count; i++) {
     const t = (i / count) * 2 * Math.PI;
@@ -16,17 +16,17 @@ function generateOrderedPoints(count = TOTAL_HEARTS, scaleX = 22, scaleY = 17) {
       Math.cos(4 * t)
     );
 
-    y = y - 2.8;
+    y = y - 1.2;
 
-    const jitterX = (Math.random() - 0.5) * 16;
-    const jitterY = (Math.random() - 0.5) * 16;
+    const jitterX = (Math.random() - 0.5) * 12;
+    const jitterY = (Math.random() - 0.5) * 12;
     const drawDelay = (i / count) * 2.2;
 
     list.push({
       id: i,
       x: x * scaleX + jitterX,
       y: y * scaleY + jitterY,
-      size: Math.random() * 4 + 10,
+      size: Math.random() * 3 + 8,
       drawDelay,
     });
   }
@@ -34,19 +34,19 @@ function generateOrderedPoints(count = TOTAL_HEARTS, scaleX = 22, scaleY = 17) {
 }
 
 function FinalHeart({ text = "Anh yêu em" }) {
-  // Tính toán kích thước tim thích hợp theo màn hình
   const [dimensions, setDimensions] = useState(() => {
     const w = window.innerWidth;
     const h = window.innerHeight;
     const isLandscape = w > h && h < 550;
 
     if (isLandscape) {
-      return { scaleX: 18, scaleY: 11 }; // Khi xoay ngang: thu hẹp chiều dọc
+      return { scaleX: 11, scaleY: 7.5 };
     }
     if (w < 500) {
-      return { scaleX: 11.5, scaleY: 11 }; // Cầm dọc iPhone: thu gọn hai bên
+      return { scaleX: 11.5, scaleY: 11.5 };
     }
-    return { scaleX: 24, scaleY: 18 }; // Màn hình máy tính lớn
+    // Thu nhỏ tim trên màn hình máy tính:
+    return { scaleX: 13, scaleY: 10 };
   });
 
   const [startDrawing, setStartDrawing] = useState(false);
@@ -58,11 +58,11 @@ function FinalHeart({ text = "Anh yêu em" }) {
       const isLandscape = w > h && h < 550;
 
       if (isLandscape) {
-        setDimensions({ scaleX: 18, scaleY: 11 });
+        setDimensions({ scaleX: 11, scaleY: 7.5 });
       } else if (w < 500) {
-        setDimensions({ scaleX: 11.5, scaleY: 11 });
+        setDimensions({ scaleX: 11.5, scaleY: 11.5 });
       } else {
-        setDimensions({ scaleX: 24, scaleY: 18 });
+        setDimensions({ scaleX: 13, scaleY: 10 });
       }
     };
 

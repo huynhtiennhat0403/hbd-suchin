@@ -1,20 +1,19 @@
 import { useMemo } from "react";
 import "./FallingHearts.css";
 
-// Tạo sẵn danh sách hạt tim ngẫu nhiên
-function generateHearts(count = 60) {
+// Tạo danh sách các dòng chữ rơi ngẫu nhiên
+function generateHearts(count = 65) {
   return Array.from({ length: count }, (_, index) => ({
     id: index,
-    left: Math.random() * 100, // Vị trí ngang 0% - 100%
-    size: Math.random() * 20 + 16, // Kích cỡ 16px - 36px
-    duration: Math.random() * 1 + 1, // Tốc độ rơi cực nhanh: 0.8s - 1.6s
-    delay: Math.random() * 2, // Phân tán thời gian bắt đầu rơi trong 2s đầu
-    opacity: Math.random() * 0.6 + 0.4, // Độ trong suốt
+    left: Math.random() * 95, // Giới hạn 0% - 95% để chữ dài không tràn mép màn hình
+    size: Math.random() * 8 + 14, // Kích thước chữ rơi vừa vặn: 14px - 22px
+    duration: Math.random() * 1.5 + 2, // Thời gian rơi từ 2s - 3.5s (giúp đọc rõ chữ hơn)
+    delay: Math.random() * 2.5, // Phân tán nhịp rơi
+    opacity: Math.random() * 0.5 + 0.5, // Độ mờ 0.5 - 1.0
   }));
 }
 
 function FallingHearts() {
-  // Dùng useMemo để danh sách tim chỉ sinh ra 1 lần duy nhất, không lag máy
   const hearts = useMemo(() => generateHearts(65), []);
 
   return (
@@ -31,7 +30,7 @@ function FallingHearts() {
             opacity: heart.opacity,
           }}
         >
-          ♥
+          Khánh Như
         </span>
       ))}
     </div>

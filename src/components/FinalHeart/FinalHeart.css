@@ -5,13 +5,15 @@
   align-items: center;
   width: 100%;
   min-height: 480px;
+  /* Đẩy sâu xuống dưới 90px để đỉnh tim hoàn toàn nằm dưới khuôn mặt */
+  transform: translateY(90px);
 }
 
 .heart-border {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, calc(-50% + 20px));
   pointer-events: none;
 }
 
@@ -34,30 +36,33 @@ h1.final-message {
   margin: 0;
   color: #ffffff;
   font-family: 'Dancing Script', cursive;
-  font-size: 4.5rem;
+  font-size: 2.8rem;
   font-weight: 700;
   text-align: center;
   text-shadow: 
     0 0 12px rgba(255, 255, 255, 0.95),
     0 0 28px rgba(255, 77, 109, 0.85);
   letter-spacing: 2px;
-  transform: translateY(-20px);
+  /* Đẩy chữ xuống dưới (dùng số dương) */
   animation: fadeInText 1.2s ease-out forwards;
+  margin-left: 21px
 }
 
 @keyframes fadeInText {
   from {
     opacity: 0;
-    transform: translateY(-10px) scale(0.85);
+    transform: translateY(10px) scale(0.85);
   }
   to {
     opacity: 1;
-    transform: translateY(-10px) scale(1);
+    /* Phải khớp số dương ở đây thì chữ mới ở yên vị trí thấp */
+    transform: translateY(20px) scale(1);
   }
 }
+
 @keyframes appearAndGlow {
   0% {
-    transform: translate(var(--tx), calc(var(--ty) + 12px)) scale(0.3);
+    transform: translate(var(--tx), calc(var(--ty) + 10px)) scale(0.3);
     opacity: 0;
   }
   20% {
@@ -69,7 +74,7 @@ h1.final-message {
     opacity: 0.95;
   }
   100% {
-    transform: translate(var(--tx), calc(var(--ty) - 5px)) scale(0.9);
+    transform: translate(var(--tx), calc(var(--ty) - 4px)) scale(0.9);
     opacity: 0.8;
   }
 }
@@ -78,10 +83,14 @@ h1.final-message {
 @media (max-width: 600px) and (orientation: portrait) {
   .final-heart-container {
     min-height: 380px;
-    transform: translateX(-10px);
+    transform: translateY(60px);
+  }
+  .heart-border {
+    transform: translate(calc(-50% - 9px), calc(-50% + 20px));
   }
   h1.final-message {
-    font-size: 3rem;
+    font-size: 2.2rem;
+    transform: translateY(-5px);
   }
 }
 
@@ -89,8 +98,10 @@ h1.final-message {
 @media (orientation: landscape) and (max-height: 500px) {
   .final-heart-container {
     min-height: 300px;
+    transform: translateY(40px);
   }
   h1.final-message {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    margin-left: 30px;
   }
 }

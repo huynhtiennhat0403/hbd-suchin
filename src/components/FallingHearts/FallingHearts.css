@@ -8,33 +8,46 @@
 
 .heart {
   position: absolute;
-  top: -60px;
-  color: #ff3366;
+  top: -120px; /* Tăng khoảng âm để dòng chữ dọc không bị cụt khi bắt đầu rơi */
+  
+  /* 1. Xếp chữ thẳng đứng dọc xuống */
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 3px; /* Khoảng cách giữa các ký tự cho thoáng mắt */
+
+  /* 2. Màu trắng phát sáng cực nổi bật trên nền tối */
+  color: #ffffff;
+  font-weight: 700;
+  font-family: 'Dancing Script', cursive, sans-serif; /* Dùng chung font uốn lượn đẹp mắt */
+  text-shadow: 
+    0 0 6px #ffffff,
+    0 0 12px rgba(255, 105, 180, 0.9),
+    0 0 20px rgba(255, 51, 102, 0.7);
+
   user-select: none;
 
-  /* Chạy liên tục lặp lại không ngừng */
+  /* Hiệu ứng rơi */
   animation-name: fallFast;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-
   will-change: transform;
 }
 
 @keyframes fallFast {
   0% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0);
   }
   25% {
-    transform: translate3d(15px, 30vh, 0) rotate(20deg);
+    transform: translate3d(8px, 30vh, 0);
   }
   50% {
-    transform: translate3d(-15px, 60vh, 0) rotate(-20deg);
+    transform: translate3d(-8px, 60vh, 0);
   }
   75% {
-    transform: translate3d(10px, 90vh, 0) rotate(15deg);
+    transform: translate3d(6px, 90vh, 0);
   }
   100% {
-    /* Đẩy hẳn ra khỏi đáy màn hình */
-    transform: translate3d(0, 115vh, 0) rotate(0deg);
+    /* Đẩy qua khỏi đáy màn hình */
+    transform: translate3d(0, 120vh, 0);
   }
 }

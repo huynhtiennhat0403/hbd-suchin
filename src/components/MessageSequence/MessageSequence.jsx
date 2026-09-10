@@ -3,6 +3,7 @@ import "./MessageSequence.css";
 
 const messages = [
   "Hôm nay là một ngày đặc biệt...",
+  "14/9 một cô công chúa ra đời.",
   "Chúc mừng sinh nhật SuChin tuổi 21.",
   "Chúc em tuổi mới luôn xinh đẹp, vui vẻ...",
   "Bình an và thật hạnh phúc.",
